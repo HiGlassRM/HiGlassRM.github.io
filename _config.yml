@@ -13,7 +13,13 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+# Site settings
+title: HiGlassRM 
+email: jnf0219@naver.com 
+description: "A project website for the WACV2026 paper: HiGlassRM: Learning to Remove High-prescription Glasses via Synthetic Dataset Generation" 
+# github_username: 이 변수는 개인 계정용이므로, 조직 페이지에서는 삭제하거나 HiGlassRM으로 변경 가능
 
+baseurl: "" # 👈 조직 페이지의 최상위 도메인 주소이므로 반드시 비워야 함
 # Build settings
 markdown: kramdown
 
