@@ -38,6 +38,7 @@ The framework begins by transforming the real image $R$ and synthetic image $I$ 
 ## Visual Examples from HiGlass Dataset 
 ![Dataset Examples](/static/image/HiGlass_dataset_sample_v2.png)
 
+## Visual Examples from HiGlass Dataset 
 
 <!-- ## Key Ideas
 1. Turing first presented the concept of a "computable number," which refers to a number that can be computed by an algorithm or a definite step-by-step process.

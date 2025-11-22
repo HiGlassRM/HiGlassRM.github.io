@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HiGlassRM: Learning to Remove High-prescription Glasses via Synthetic Dataset Generation</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+        processEscapes: true, 
+        tags: 'all',
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">HiGlassRM: Learning to Remove High-prescription Glasses via Synthetic Dataset Generation</h1>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Sebin Lee, Heewon Kim
+            </span>
+          </div>
+          
+
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Soongsil University
+            </span>
+          </div>
+          
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              
+              <span class="link-block">
+                <a href="https://higlassrm.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              
+              <!-- Video Link. -->
+              
+              <!-- Code Link. -->
+              
+              <span class="link-block">
+                <a href="https://higlassrm.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              
+              <!-- Dataset Link. -->
+              
+              <span class="link-block">
+                <a href="https://higlassrm.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<div class="container is-max-desktop">
+
+<div class="content">
+  <!-- Using HTML to center the abstract -->
+<div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+        <h2>Abstract</h2>
+        <div class="content has-text-justified">
+Existing eyeglass removal methods can handle frames and shadows but fail to correct lens-induced geometric distortions, as public datasets lack the necessary supervision. To address this, we introduce the <span style="color: teal;font-weight: bold; font-size: 1.1em;">HiGlass Dataset</span>, the first large-scale synthetic dataset providing explicit flow-based supervision for refractive warping. We also propose <span style="color: teal;font-weight: bold; font-size: 1.1em;">HiGlassRM</span>, a novel pipeline whose core is a network that explicitly estimates a displacement flowmap to de-warp distorted facial geometry. Experiments on both synthetic and real images show that this flowmap-centric approach, trained on our data, significantly improves identity preservation and perceptual quality over existing methods. Our work demonstrates that explicitly modeling and correcting geometric distortion via flowmap estimation, enabled by targeted supervision, is key to faithful eyeglass removal.
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h2 id="higlass-dataset-synthesis-overview">HiGlass Dataset Synthesis Overview</h2>
+<p>From the binary eyeglass-frame mask $M$, the outermost contour $C$ is detected and drawn to create the filled silhouette mask $C_m$. A bitwise XOR with $M$ yields the lens mask $S$. The complement $\overline{C}_m$ masks the face image $O$ to produce the background-preserved image $O_m$. A flow map $F$ is computed and applied inside $S$ to obtain the lens-distorted content $L_d$. Finally, the colored frame $M_C$ is added and the result is composited with $O_m$ to form the final image $I$.
+<img src="/static/image/dataset_tutorial.png" alt="Dataset Generation Overview" /></p>
+
+<h2 id="higlassrm-overview">HiGlassRM Overview</h2>
+<p>The framework begins by transforming the real image $R$ and synthetic image $I$ into unified feature maps $R_{fm}$ and $I_{fm}$ through the Domain Adaptation (DA) Network. The Glass Mask Network processes $I_{fm}$ to generate an eyeglass mask $\widehat{M}$, identifying the presence of eyeglasses. The De-Shadow Network takes $I$ and $\widehat{M}$ as input to produce a shadow-free image $\widehat{D}$. The Flowmap Network, using $I_{fm}$ and $\widehat{M}$, generates a flow map $\widehat{F}$ to correct distortion. This flow map is applied to $\widehat{D}$ through Grid Sampling, producing $D_f$. Next, element-wise multiplication with the inverted mask $\overline{M}$ yields the masked de-distorted image $D_m$. The De-Glass Network then processes $D_m$ and $\widehat{M}$ to generate the eyeglass-free image $\widehat{O}$.
+<img src="/static/image/framework.png" alt="Method Overview" /></p>
+
+<h2 id="visual-examples-from-higlass-dataset">Visual Examples from HiGlass Dataset</h2>
+<p><img src="/static/image/HiGlass_dataset_sample_v2.png" alt="Dataset Examples" /></p>
+
+<h2 id="visual-examples-from-higlass-dataset-1">Visual Examples from HiGlass Dataset</h2>
+
+<!-- ## Key Ideas
+1. Turing first presented the concept of a "computable number," which refers to a number that can be computed by an algorithm or a definite step-by-step process.
+2. He introduced the notion of a Turing machine, an abstract computational device consisting of an infinite tape divided into cells and a read-write head. The machine can read and write symbols on the tape, move the head left or right, and transition between states based on a set of rules.
+3. Turing demonstrated that the set of computable numbers is enumerable, meaning it can be listed in a systematic way, even though it is not necessarily countable.
+4. He proved the existence of non-computable numbers, which cannot be computed by any Turing machine.
+5. Turing showed that the Entscheidungsproblem is undecidable, meaning there is no algorithm that can determine, for any given mathematical statement, whether it is provable or not.
+
+
+
+## Table: Comparison of Computable and Non-Computable Numbers
+
+| Computable Numbers | Non-Computable Numbers |
+|-------------------|-----------------------|
+| Rational numbers, e.g., 1/2, 3/4 | Transcendental numbers, e.g., π, e |
+| Algebraic numbers, e.g., √2, ∛3 | Non-algebraic numbers, e.g., √2 + √3 |
+| Numbers with finite decimal representations | Numbers with infinite, non-repeating decimal representations |
+
+He used the concept of a universal Turing machine to prove that the set of computable functions is recursively enumerable, meaning it can be listed by an algorithm.
+
+## Significance
+Turing's paper laid the foundation for the theory of computation and had a profound impact on the development of computer science. The Turing machine became a fundamental concept in theoretical computer science, serving as a theoretical model for studying the limits and capabilities of computation. Turing's work also influenced the development of programming languages, algorithms, and the design of modern computers.
+
+## Citation
+```
+@article{turing1936computable,
+  title={On computable numbers, with an application to the Entscheidungsproblem},
+  author={Turing, Alan Mathison},
+  journal={Journal of Mathematics},
+  volume={58},
+  number={345-363},
+  pages={5},
+  year={1936}
+}
+``` -->
+
+</div>
+
+</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a href="https://github.com/shunzh/project_website">the Jekyll fork</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
