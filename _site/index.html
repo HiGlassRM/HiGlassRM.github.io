@@ -115,7 +115,11 @@
 <div class="container is-max-desktop">
 
 <div class="content">
-  <!-- Using HTML to center the abstract -->
+  <div class="centered-image-container">
+    <img src="/static/image/compare_real_FFHQ.jpg" alt="FFHQ Dataset Examples" class="adjustable-image" />
+    <p class="figure-caption">Figure1: Qualitative comparison on FFHQ [15]. Our HiGlassRM explicitly compensates this geometric distortion, preserving identity-consistent facial geometry and background alignment.overview</p>
+</div>
+<!-- Using HTML to center the abstract -->
 <div class="columns is-centered has-text-centered">
     <div class="column is-four-fifths">
         <h2>Abstract</h2>
@@ -127,18 +131,27 @@ Existing eyeglass removal methods can handle frames and shadows but fail to corr
 
 <hr />
 
-<h2 id="higlass-dataset-synthesis-overview">HiGlass Dataset Synthesis Overview</h2>
-<p>From the binary eyeglass-frame mask $M$, the outermost contour $C$ is detected and drawn to create the filled silhouette mask $C_m$. A bitwise XOR with $M$ yields the lens mask $S$. The complement $\overline{C}_m$ masks the face image $O$ to produce the background-preserved image $O_m$. A flow map $F$ is computed and applied inside $S$ to obtain the lens-distorted content $L_d$. Finally, the colored frame $M_C$ is added and the result is composited with $O_m$ to form the final image $I$.
-<img src="/static/image/dataset_tutorial.png" alt="Dataset Generation Overview" /></p>
+<h2 id="higlass-dataset-overview">HiGlass Dataset Overview</h2>
+
+<p><img src="/static/image/dataset_tutorial.png" alt="Dataset Generation Overview" />
+<em>Figure3: HiGlass Dataset synthesis overview</em></p>
+
+<p>From the binary eyeglass-frame mask $M$, the outermost contour $C$ is detected and drawn to create the filled silhouette mask $C_m$. A bitwise XOR with $M$ yields the lens mask $S$. The complement $\overline{C}_m$ masks the face image $O$ to produce the background-preserved image $O_m$. A flow map $F$ is computed and applied inside $S$ to obtain the lens-distorted content $L_d$. Finally, the colored frame $M_C$ is added and the result is composited with $O_m$ to form the final image $I$.</p>
+
+<p><img src="/static/image/HiGlass_dataset_sample_v2.png" alt="Dataset Examples" />
+<em>Figure6: Examples from HiGlass Dataset</em></p>
+
+<p>The HiGlass Dataset provides rich visual samples showcasing diversity in frame shapes and lens powers. Each paired sample contains five core components: $(I, M, F, D, O)$. The HiGlass image $I$ is the final composite with all synthesized optical effects. The binary eyeglass-frame mask $M$ localizes only the frames. The displacement flowmap $F$ encodes the geometric warp caused by the lens (e.g., minification or magnification). The shadow-free image $D$ is a rendered variant that retains these optical effects but removes cast shadows. Finally, the face image $O$ is the eyeglass-free supervision target.</p>
 
 <h2 id="higlassrm-overview">HiGlassRM Overview</h2>
-<p>The framework begins by transforming the real image $R$ and synthetic image $I$ into unified feature maps $R_{fm}$ and $I_{fm}$ through the Domain Adaptation (DA) Network. The Glass Mask Network processes $I_{fm}$ to generate an eyeglass mask $\widehat{M}$, identifying the presence of eyeglasses. The De-Shadow Network takes $I$ and $\widehat{M}$ as input to produce a shadow-free image $\widehat{D}$. The Flowmap Network, using $I_{fm}$ and $\widehat{M}$, generates a flow map $\widehat{F}$ to correct distortion. This flow map is applied to $\widehat{D}$ through Grid Sampling, producing $D_f$. Next, element-wise multiplication with the inverted mask $\overline{M}$ yields the masked de-distorted image $D_m$. The De-Glass Network then processes $D_m$ and $\widehat{M}$ to generate the eyeglass-free image $\widehat{O}$.
-<img src="/static/image/framework.png" alt="Method Overview" /></p>
 
-<h2 id="visual-examples-from-higlass-dataset">Visual Examples from HiGlass Dataset</h2>
-<p><img src="/static/image/HiGlass_dataset_sample_v2.png" alt="Dataset Examples" /></p>
+<p><img src="/static/image/framework.jpg" alt="Method Overview" />
+<em>Figure4: Overview of the proposed HiGlassRM.</em></p>
 
-<h2 id="visual-examples-from-higlass-dataset-1">Visual Examples from HiGlass Dataset</h2>
+<p>The framework begins by transforming the real image $R$ and synthetic image $I$ into unified feature maps $R_{fm}$ and $I_{fm}$ through the Domain Adaptation (DA) Network. The Glass Mask Network processes $I_{fm}$ to generate an eyeglass mask $\widehat{M}$, identifying the presence of eyeglasses. The De-Shadow Network takes $I$ and $\widehat{M}$ as input to produce a shadow-free image $\widehat{D}$. The Flowmap Network, using $I_{fm}$ and $\widehat{M}$, generates a flow map $\widehat{F}$ to correct distortion. This flow map is applied to $\widehat{D}$ through Grid Sampling, producing $D_f$. Next, element-wise multiplication with the inverted mask $\overline{M}$ yields the masked de-distorted image $D_m$. The De-Glass Network then processes $D_m$ and $\widehat{M}$ to generate the eyeglass-free image $\widehat{O}$.</p>
+
+<h2 id="experimental-results-on-real-data">Experimental Results on Real Data</h2>
+<p><img src="/static/image/meglass.png" alt="Dataset Examples" /></p>
 
 <!-- ## Key Ideas
 1. Turing first presented the concept of a "computable number," which refers to a number that can be computed by an algorithm or a definite step-by-step process.

@@ -23,12 +23,6 @@ body {
   padding-bottom: 3rem;
 }
 
-.hero .hero-body {
-  /* 기본 패딩 값(Bulma)보다 큰 값을 지정하여 상단 공간을 늘립니다. */
-  padding-top: 6rem; /* 예시: 현재보다 공간을 많이 확보 */
-  padding-bottom: 5rem; 
-}
-
 .teaser {
   font-family: 'Google Sans', sans-serif;
 }
@@ -160,4 +154,34 @@ body {
 }
 #interpolation-image-wrapper img {
   border-radius: 5px;
+}
+
+/* 이미지 컨테이너 중앙 정렬 */
+.centered-image-container {
+  text-align: center; /* 이미지를 중앙 정렬 */
+  margin-top: 20px;   /* 위쪽 여백 */
+  margin-bottom: 20px; /* 아래쪽 여백 */
+}
+
+/* 이미지 크기 조절 */
+.adjustable-image {
+  max-width: 80%; /* 이미지의 최대 너비를 부모 컨테이너의 80%로 설정 */
+  height: auto;   /* 비율 유지 */
+  display: block; /* margin auto를 위해 블록 요소로 만듦 */
+  margin-left: auto; /* 중앙 정렬 */
+  margin-right: auto; /* 중앙 정렬 */
+}
+
+/* 캡션 스타일 (선택 사항) */
+.figure-caption {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* 제목 영역의 상단 패딩을 조정합니다. */
+.hero .hero-body {
+  /* 기본 패딩 값(Bulma)보다 큰 값을 지정하여 상단 공간을 늘립니다. */
+  padding-top: 5rem; /* 예시: 현재보다 공간을 많이 확보 */
+  padding-bottom: 3rem; 
 }
