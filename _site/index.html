@@ -6,7 +6,9 @@
         content="">
   <meta name="keywords" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HiGlassRM: Learning to Remove High-prescription Glasses via Synthetic Dataset Generation</title>
+  <title>HiGlassRM: Learning to Remove <br> High-prescription Glasses <br>via Synthetic Dataset Generation</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👓</text></svg>">
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -46,11 +48,11 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">HiGlassRM: Learning to Remove High-prescription Glasses via Synthetic Dataset Generation</h1>
+          <h1 class="title is-1 publication-title">HiGlassRM: Learning to Remove <br> High-prescription Glasses <br>via Synthetic Dataset Generation</h1>
           
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              Sebin Lee, Heewon Kim
+              <a href="https://sebinyday.github.io/">Sebin Lee</a> and <a href="https://scholar.google.com/citations?user=B1Yuz3gAAAAJ&hl=ko&oi=ao">Heewon Kim</a>
             </span>
           </div>
           
@@ -62,7 +64,13 @@
             </span>
           </div>
           
-
+          
+          <div class="is-size-4 publication-authors" style="font-weight: bold;">
+            <span class="author-block">
+              WACV 2026
+            </span>
+          </div>
+          
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
@@ -79,17 +87,17 @@
               
               <!-- Video Link. -->
               
-              <!-- Code Link. -->
-              
               <span class="link-block">
-                <a href="https://higlassrm.github.io/"
+                <a href="https://www.youtube.com/watch?v=y73z4J86Dhw"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
-                      <i class="fab fa-github"></i>
+                      <i class="fab fa-youtube"></i>
                   </span>
-                  <span>Code</span>
-                  </a>
+                  <span>Video</span>
+                </a>
               </span>
+              
+              <!-- Code Link. -->
               
               <!-- Dataset Link. -->
               
@@ -99,7 +107,7 @@
                   <span class="icon">
                       <i class="fas fa-database"></i>
                   </span>
-                  <span>Data</span>
+                  <span>Data (Soon)</span>
                 </a>
               </span>
               
@@ -111,15 +119,16 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-top: 0;">
 <div class="container is-max-desktop">
 
-<div class="content">
+<div class="content" style="padding-top: 1;">
   <div class="centered-image-container">
     <img src="/static/image/compare_real_FFHQ.jpg" alt="FFHQ Dataset Examples" class="adjustable-image" />
-    <p class="figure-caption">Figure1: Qualitative comparison on FFHQ [15]. Our HiGlassRM explicitly compensates this geometric distortion, preserving identity-consistent facial geometry and background alignment.overview</p>
+    Our HiGlassRM explicitly compensates this geometric distortion, <br /> preserving identity-consistent facial geometry and background alignment.
 </div>
-<!-- Using HTML to center the abstract -->
+<p><br />
+<!-- Using HTML to center the abstract --></p>
 <div class="columns is-centered has-text-centered">
     <div class="column is-four-fifths">
         <h2>Abstract</h2>
@@ -131,62 +140,67 @@ Existing eyeglass removal methods can handle frames and shadows but fail to corr
 
 <hr />
 
-<h2 id="higlass-dataset-overview">HiGlass Dataset Overview</h2>
+<h2 id="synthetic-dataset-generation">Synthetic Dataset Generation</h2>
 
-<p><img src="/static/image/dataset_tutorial.png" alt="Dataset Generation Overview" />
-<em>Figure3: HiGlass Dataset synthesis overview</em></p>
+<p><img src="/static/image/dataset_tutorial.png" alt="Synthetic Dataset Generation" />
+<em>Figure3: Overview of the HiGlass Dataset synthesis.</em></p>
 
-<p>From the binary eyeglass-frame mask $M$, the outermost contour $C$ is detected and drawn to create the filled silhouette mask $C_m$. A bitwise XOR with $M$ yields the lens mask $S$. The complement $\overline{C}_m$ masks the face image $O$ to produce the background-preserved image $O_m$. A flow map $F$ is computed and applied inside $S$ to obtain the lens-distorted content $L_d$. Finally, the colored frame $M_C$ is added and the result is composited with $O_m$ to form the final image $I$.</p>
+<!-- From the binary eyeglass-frame mask $M$, the outermost contour $C$ is detected and drawn to create the filled silhouette mask $C_m$. A bitwise XOR with $M$ yields the lens mask $S$. The complement $\overline{C}_m$ masks the face image $O$ to produce the background-preserved image $O_m$. A flow map $F$ is computed and applied inside $S$ to obtain the lens-distorted content $L_d$. Finally, the colored frame $M_C$ is added and the result is composited with $O_m$ to form the final image $I$. -->
 
-<p><img src="/static/image/HiGlass_dataset_sample_v2.png" alt="Dataset Examples" />
-<em>Figure6: Examples from HiGlass Dataset</em></p>
+<ul style="list-style: none; padding-left: 0;">
+<li>1️⃣Segment lens area from the binary eyeglass-frame mask ($M$)</li>
+<li>2️⃣Depth-&amp; center-aware flowmap synthesis</li>
+<li>$$F(\mathbf{p}) = (\mathbf{p} - \mathbf{p}_c) \odot R_{\text{depth}}(\mathbf{p}) \odot S(\mathbf{p})$$</li>
+<li>3️⃣Selective warping ($𝐿_𝑑$)+ background-preserving composition</li>
+</ul>
+<!-- <li style="list-style: none;">$$R_{\text{depth}}(x,y)=
+\begin{cases}
+R_{\text{background}}, & T_{\text{depth}}(x,y)\ge\delta\\
+\operatorname{Smoothing}\!\big(r;S,x,y\big), & T_{\text{depth}}(x,y)<\delta
+\end{cases}$$ </li> -->
 
-<p>The HiGlass Dataset provides rich visual samples showcasing diversity in frame shapes and lens powers. Each paired sample contains five core components: $(I, M, F, D, O)$. The HiGlass image $I$ is the final composite with all synthesized optical effects. The binary eyeglass-frame mask $M$ localizes only the frames. The displacement flowmap $F$ encodes the geometric warp caused by the lens (e.g., minification or magnification). The shadow-free image $D$ is a rendered variant that retains these optical effects but removes cast shadows. Finally, the face image $O$ is the eyeglass-free supervision target.</p>
+<p><br />
+<img src="/static/image/HiGlass_dataset_sample_v2.png" alt="Synthetic Dataset Generation Results" />
+<em>Figure6:  Visual examples from HiGlass Dataset.</em></p>
 
-<h2 id="higlassrm-overview">HiGlassRM Overview</h2>
+<ul style="list-style: none; padding-left: 0;">
+<li>The HiGlass Dataset contains 29,071 paired samples, each consisting of five components ($I$, $M$, $F$, $D$, $O$). </li>
+</ul>
+<!-- The HiGlass Dataset provides rich visual samples showcasing diversity in frame shapes and lens powers. Each paired sample contains five core components: $(I, M, F, D, O)$. The HiGlass image $I$ is the final composite with all synthesized optical effects. The binary eyeglass-frame mask $M$ localizes only the frames. The displacement flowmap $F$ encodes the geometric warp caused by the lens (e.g., minification or magnification). The shadow-free image $D$ is a rendered variant that retains these optical effects but removes cast shadows. Finally, the face image $O$ is the eyeglass-free supervision target. -->
+
+<hr />
+
+<h2 id="higlassrm-framework">HiGlassRM Framework</h2>
 
 <p><img src="/static/image/framework.jpg" alt="Method Overview" />
 <em>Figure4: Overview of the proposed HiGlassRM.</em></p>
 
-<p>The framework begins by transforming the real image $R$ and synthetic image $I$ into unified feature maps $R_{fm}$ and $I_{fm}$ through the Domain Adaptation (DA) Network. The Glass Mask Network processes $I_{fm}$ to generate an eyeglass mask $\widehat{M}$, identifying the presence of eyeglasses. The De-Shadow Network takes $I$ and $\widehat{M}$ as input to produce a shadow-free image $\widehat{D}$. The Flowmap Network, using $I_{fm}$ and $\widehat{M}$, generates a flow map $\widehat{F}$ to correct distortion. This flow map is applied to $\widehat{D}$ through Grid Sampling, producing $D_f$. Next, element-wise multiplication with the inverted mask $\overline{M}$ yields the masked de-distorted image $D_m$. The De-Glass Network then processes $D_m$ and $\widehat{M}$ to generate the eyeglass-free image $\widehat{O}$.</p>
+<!-- The framework begins by transforming the real image $R$ and synthetic image $I$ into unified feature maps $R_{fm}$ and $I_{fm}$ through the Domain Adaptation (DA) Network. The Glass Mask Network processes $I_{fm}$ to generate an eyeglass mask $\widehat{M}$, identifying the presence of eyeglasses. The De-Shadow Network takes $I$ and $\widehat{M}$ as input to produce a shadow-free image $\widehat{D}$. The Flowmap Network, using $I_{fm}$ and $\widehat{M}$, generates a flow map $\widehat{F}$ to correct distortion. This flow map is applied to $\widehat{D}$ through Grid Sampling, producing $D_f$. Next, element-wise multiplication with the inverted mask $\overline{M}$ yields the masked de-distorted image $D_m$. The De-Glass Network then processes $D_m$ and $\widehat{M}$ to generate the eyeglass-free image $\widehat{O}$. -->
+<ul>
+<li>HiGlassRM decouples geometric correction from appearance restoration.</li>
+<li>The core component, the Flowmap Network, predicts a two-channel displacement field $\widehat{F}$ to explicitly model lens-induced distortion.</li>
+<li>The predicted flow is applied via grid sampling to restore the warped facial geometry.</li>
+<li>Once geometry is restored, the De-Glass Network synthesizes the final eyeglass-free output.</li>
+</ul>
+<hr />
 
 <h2 id="experimental-results-on-real-data">Experimental Results on Real Data</h2>
-<p><img src="/static/image/meglass.png" alt="Dataset Examples" /></p>
+<p><img src="/static/image/meglass.png" alt="Dataset Examples" />
+<em>Figure 8. Qualitative comparison on the MeGlass dataset</em></p>
 
-<!-- ## Key Ideas
-1. Turing first presented the concept of a "computable number," which refers to a number that can be computed by an algorithm or a definite step-by-step process.
-2. He introduced the notion of a Turing machine, an abstract computational device consisting of an infinite tape divided into cells and a read-write head. The machine can read and write symbols on the tape, move the head left or right, and transition between states based on a set of rules.
-3. Turing demonstrated that the set of computable numbers is enumerable, meaning it can be listed in a systematic way, even though it is not necessarily countable.
-4. He proved the existence of non-computable numbers, which cannot be computed by any Turing machine.
-5. Turing showed that the Entscheidungsproblem is undecidable, meaning there is no algorithm that can determine, for any given mathematical statement, whether it is provable or not.
+<h2 id="experimental-results-on-higlass-dataset">Experimental Results on HiGlass Dataset</h2>
+<p><img src="/static/image/experiment.jpg" alt="Dataset Examples" />
+<em>Figure 7. Qualitative comparison of our method (HiGlassRM) against five baseline methods and the Ground Truth on the HiGlass Dataset.</em>
+<img src="/static/image/Table1_Quantitative.png" alt="Dataset Examples" />
+<em>Table 1. Quantitative comparison on the test split of the HiGlass dataset.</em></p>
 
+<h2 id="citation">Citation</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TBD (To be published at WACV 2026)
+</code></pre></div></div>
 
-
-## Table: Comparison of Computable and Non-Computable Numbers
-
-| Computable Numbers | Non-Computable Numbers |
-|-------------------|-----------------------|
-| Rational numbers, e.g., 1/2, 3/4 | Transcendental numbers, e.g., π, e |
-| Algebraic numbers, e.g., √2, ∛3 | Non-algebraic numbers, e.g., √2 + √3 |
-| Numbers with finite decimal representations | Numbers with infinite, non-repeating decimal representations |
-
-He used the concept of a universal Turing machine to prove that the set of computable functions is recursively enumerable, meaning it can be listed by an algorithm.
-
-## Significance
-Turing's paper laid the foundation for the theory of computation and had a profound impact on the development of computer science. The Turing machine became a fundamental concept in theoretical computer science, serving as a theoretical model for studying the limits and capabilities of computation. Turing's work also influenced the development of programming languages, algorithms, and the design of modern computers.
-
-## Citation
-```
-@article{turing1936computable,
-  title={On computable numbers, with an application to the Entscheidungsproblem},
-  author={Turing, Alan Mathison},
-  journal={Journal of Mathematics},
-  volume={58},
-  number={345-363},
-  pages={5},
-  year={1936}
-}
-``` -->
+<h2 id="acknowledgements">Acknowledgements</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TBD (To be published at WACV 2026)
+</code></pre></div></div>
 
 </div>
 

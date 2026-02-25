@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }}</title>
 
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👓</text></svg>">
+
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
@@ -62,7 +64,13 @@
             </span>
           </div>
           {% endif %}
-
+          {% if page.conference %}
+          <div class="is-size-4 publication-authors" style="font-weight: bold;">
+            <span class="author-block">
+              {{ page.conference }}
+            </span>
+          </div>
+          {% endif %}
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
@@ -109,7 +117,7 @@
                   <span class="icon">
                       <i class="fas fa-database"></i>
                   </span>
-                  <span>Data</span>
+                  <span>Data (Soon)</span>
                 </a>
               </span>
               {% endif %}
@@ -121,10 +129,10 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-top: 0;">
 <div class="container is-max-desktop">
 
-<div class="content">
+<div class="content" style="padding-top: 1;">
   {{ content }}
 </div>
 
