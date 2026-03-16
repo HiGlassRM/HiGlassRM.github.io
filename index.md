@@ -8,7 +8,7 @@ authors:
 affiliations:
     Soongsil University
 conference: WACV 2026
-paper: https://higlassrm.github.io/
+paper: https://openaccess.thecvf.com/content/WACV2026/papers/Lee_HiGlassRM_Learning_to_Remove_High-prescription_Glasses_via_Synthetic_Dataset_Generation_WACV_2026_paper.pdf
 video: https://www.youtube.com/watch?v=y73z4J86Dhw
 # code: https://higlassrm.github.io/
 data: https://higlassrm.github.io/
