@@ -11,7 +11,7 @@ conference: WACV 2026
 paper: https://openaccess.thecvf.com/content/WACV2026/papers/Lee_HiGlassRM_Learning_to_Remove_High-prescription_Glasses_via_Synthetic_Dataset_Generation_WACV_2026_paper.pdf
 video: https://www.youtube.com/watch?v=y73z4J86Dhw
 # code: https://higlassrm.github.io/
-data: https://higlassrm.github.io/
+data: https://github.com/sebinyday/HiGlassRM_2505
 ---
 
 <div class="centered-image-container">
@@ -89,7 +89,17 @@ R_{\text{background}}, & T_{\text{depth}}(x,y)\ge\delta\\
 
 ## Citation
 ```
-TBD (To be published at WACV 2026)
+@INPROCEEDINGS{11492505,
+  author={Lee, Sebin and Kim, Heewon},
+  booktitle={2026 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)}, 
+  title={HiGlassRM: Learning to Remove High-prescription Glasses via Synthetic Dataset Generation}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={4577-4586},
+  keywords={Feeds;Frequency modulation;Radio broadcasting;Integrated circuits;Circuits;Frequency modulation;Pixel;Protocols;Modulation;Radio broadcasting;high-index glasses;glasses removal;synthetic dataset;image synthesis;dataset generation},
+  doi={10.1109/WACV61042.2026.00445}}
+
 ```
 
 ## Acknowledgements
